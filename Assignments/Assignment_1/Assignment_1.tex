@@ -69,7 +69,18 @@ H = Q^{\prime}S^{\prime} + Q^{\prime}R^{\prime} + P^{\prime}S + PQR
 \caption{K-Map for $H$.}
 \label{fig:kmap_Av1}
 \end{figure}
-To verify the optimality of above result, The prime implicants were given to \textit{Quine-McCluskey} algorithm implemented here. This was implemented using \textit{cvxpy}.
-\subsection*{OUTPUT}
+\newpage
+\subsection*{Optimality verfication}
+To verify the optimality of above result, The prime implicants were given to \textit{Quine-McCluskey} algorithm implemented \href{https://github.com/TUdayKiranReddy/FPGA_Lab/tree/main/Assignments/Assignment_1/Quine_Mccluskey}{here}. This was implemented using \textit{cvxpy}.\\
+
+\begin{figure}[h!]
+\includegraphics[scale=0.5]{./figs/opt.png}
+\end{figure}
+
+\textit{NOTE:- Here A, B, C, and D corresponds to P, Q, R, and S respectively.}
     
+\subsection*{Boolean expression verification}
+A \href{https://github.com/TUdayKiranReddy/FPGA_Lab/tree/main/Assignments/Assignment_1/codes/verification_testbench.c}{testbench} was created to verify the correctness of the obtained boolean expression.
+
+
 \end{document}
