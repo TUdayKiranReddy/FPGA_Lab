@@ -4,10 +4,33 @@
 #include <stdio.h>
 #include <time.h>
 
-void delay(unsigned int);
+// Two input NAND
+unsigned char NAND(unsigned char A, unsigned char B){
+    return ~(A&B);
+}
+
+// NOT from NAND
+unsigned char NOT(unsigned char A){
+    return NAND(A, A);
+}
+
+// Two input AND using NAND
+unsigned char AND(unsigned char A, unsigned char B){
+    return NOT(NAND(A, B));
+}
+
+// Two input OR using NAND
+unsigned char OR(unsigned char A, unsigned char B){
+    return NAND(NOT(A), NOT(B));
+}
+
+// Two input XOR using NAND
+unsigned char XOR(unsigned char A, unsigned char B){
+    return NAND(NAND(NOT(A), B), NAND(A, NOT(B)));
+}
 
 // This function is a counter
-unsigned int * increment(unsigned char * input, unsigned char* output)
+void increment(unsigned char * input, unsigned char* output)
 {
     unsigned char P, Q, R, S;
 
@@ -16,24 +39,29 @@ unsigned int * increment(unsigned char * input, unsigned char* output)
     R = input[2];
     S = input[3];
 
-    output[0] = (~P&Q&R&S)|(P&~Q)|(P&~R)|(P&~S);
-    output[1] = (~Q&R&S)|(Q&~R)|(Q&~S);
-    output[2] = R^S;
-    output[3] = ~S;
+    // output[0] = (~P&Q&R&S)|(P&~Q)|(P&~R)|(P&~S);
+    // output[1] = (~Q&R&S)|(Q&~R)|(Q&~S);
+    // output[2] = R^S;
+    // output[3] = ~S;
+    output[0] = XOR(P, AND(AND(Q, R), S));
+    output[1] = XOR(Q, AND(R, S));
+    output[2] = XOR(R, S);
+    output[3] = NOT(S);
 
 }
 
 // This function implements logic
-unsigned int* LOGIC(unsigned char * input, unsigned char* stream)
+void LOGIC(unsigned char * input, unsigned char* stream)
 {
-    unsigned char D, C, B, A;
+    unsigned char P, Q, R, S;
 
-    D = input[3];
-    C = input[2];
-    B = input[1];
-    A = input[0];
+    P = input[0];
+    Q = input[1];
+    R = input[2];
+    S = input[3];
 
-    *stream = (A&B&C)|(~B&~C)|(~B&~D)|(~A&D);
+    // *stream = (P&Q&R)|(~Q&~R)|(~Q&~S)|(~P&S);
+    *stream = OR(OR(AND(AND(P, Q), R), AND(NOT(Q), NAND(R, S))), AND(NOT(P), S));
 
 }
 
