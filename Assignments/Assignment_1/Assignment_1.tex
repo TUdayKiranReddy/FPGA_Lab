@@ -41,12 +41,13 @@ Obtain the minimal form for the following Boolean expression using Karnaugh's Ma
 H (P, Q, R, S) = \sum (0, 1, 2, 3, 5, 7, 8, 9, 10, 14, 15)
 \end{equation*}
 \section*{\hfil Solution \hfill}
-After simplification of the above truth table in Karnaugh's map, we get
+After simplification of the above truth table with Karnaugh's map shown in Figure \ref{fig:kmap_Av1}, we get the following boolean expression
 
 \begin{equation*}
 \label{eq:kmap_A}
 H = Q^{\prime}S^{\prime} + Q^{\prime}R^{\prime} + P^{\prime}S + PQR 
 \end{equation*}
+We see that min terms are reduced from 11 to 4!. And corresponding NAND implementation is shown in Figure \ref{fig:nand}.
 
 \begin{figure}[!h]
 \resizebox {0.5\columnwidth} {!} {
@@ -70,14 +71,22 @@ H = Q^{\prime}S^{\prime} + Q^{\prime}R^{\prime} + P^{\prime}S + PQR
 \label{fig:kmap_Av1}
 \end{figure}
 \newpage
+\begin{figure}[!h]
+\resizebox {1.12\columnwidth} {!} {
+\input{figs/circuit.tex}
+}
+\caption{NAND implementation of $H$.}
+\label{fig:nand}
+\end{figure}
+
 \subsection*{Optimality verfication}
-To verify the optimality of above result, The prime implicants were given to \textit{Quine-McCluskey} algorithm implemented \href{https://github.com/TUdayKiranReddy/FPGA_Lab/tree/main/Assignments/Assignment_1/Quine_Mccluskey}{here}. This was implemented using \textit{cvxpy}.
+To verify the optimality of above result, The given min terms are given to \textit{Quine-McCluskey} algorithm implemented \href{https://github.com/TUdayKiranReddy/FPGA_Lab/tree/main/Assignments/Assignment_1/Quine_Mccluskey}{here}. This was implemented using \textit{cvxpy}.
 \begin{figure}[!h]
 \includegraphics[scale=0.45]{./figs/opt.png}
 \end{figure}
 
 \textit{NOTE:- Here A, B, C, and D corresponds to P, Q, R, and S respectively.}
-    
+\newpage
 \subsection*{Boolean expression verification}
 A \href{https://github.com/TUdayKiranReddy/FPGA_Lab/tree/main/Assignments/Assignment_1/codes/verification_testbench.c}{testbench} was created using NAND logic to verify the correctness of the obtained boolean expression.
 \begin{figure}[h!]
