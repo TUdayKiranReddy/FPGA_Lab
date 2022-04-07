@@ -1,0 +1,5 @@
+set_io p 64
+set_io q 62
+set_io r 63
+set_io s 61
+set_io h 34
